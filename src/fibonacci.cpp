@@ -1,15 +1,15 @@
 #include "fibonacci/fibonacci.h"
 
 namespace fibonacci {
-unsigned int exp(unsigned int n) {
+unsigned int recursive_naive(unsigned int n) {
   if (n < 2) {
     return n;
   }
 
-  return exp(n - 1) + exp(n - 2);
+  return recursive_naive(n - 1) + recursive_naive(n - 2);
 }
 
-unsigned int linear(unsigned int n) {
+unsigned int iterative(unsigned int n) {
   if (n < 2) {
     return n;
   }
