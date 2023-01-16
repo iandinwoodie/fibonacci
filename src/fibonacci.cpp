@@ -1,6 +1,5 @@
 #include "fibonacci/fibonacci.h"
 
-#include <iostream>
 #include <vector>
 
 namespace fibonacci {
