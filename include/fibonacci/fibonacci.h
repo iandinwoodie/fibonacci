@@ -5,7 +5,7 @@
 
 namespace fibonacci {
 // Returns the Nth Fibonacci number using a naive recursive implementation.
-// Time: O(n^2)
+// Time: O(2^n)
 // Space: O(n)
 uint64_t RecursiveNaive(uint8_t n);
 

@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <exception>
 
 namespace {
 const std::vector<uint32_t> s_fib_seq = {
@@ -24,6 +25,10 @@ TEST(FibonacciTests, RecursiveNaive_ReturnsCorrectValuesFor40FibonacciNumbers) {
   ASSERT_EQ(s_fib_seq, results);
 }
 
+TEST(FibonacciTests, RecursiveNaive_ThrowsForNGreaterThan93) {
+  ASSERT_THROW(fibonacci::RecursiveNaive(94), std::overflow_error);
+}
+
 TEST(FibonacciTests, RecursiveMemo_ReturnsCorrectValuesFor40FibonacciNumbers) {
   std::vector<uint32_t> results;
   for (uint8_t i = 0; i < s_fib_seq.size(); ++i) {
@@ -32,13 +37,20 @@ TEST(FibonacciTests, RecursiveMemo_ReturnsCorrectValuesFor40FibonacciNumbers) {
   ASSERT_EQ(s_fib_seq, results);
 }
 
+TEST(FibonacciTests, RecursiveMemo_ThrowsForNGreaterThan93) {
+  ASSERT_THROW(fibonacci::RecursiveMemo(94), std::overflow_error);
+}
+
 TEST(FibonacciTests, Iterative_ReturnsCorrectValuesFor40FibonacciNumbers) {
   std::vector<uint32_t> results;
   for (uint8_t i = 0; i < s_fib_seq.size(); ++i) {
     results.push_back(fibonacci::Iterative(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  // ASSERT_EQ(s_stress_fib, fibonacci::Iterative(s_stress_n));
+}
+
+TEST(FibonacciTests, Iterative_ThrowsForNGreaterThan93) {
+  ASSERT_THROW(fibonacci::Iterative(94), std::overflow_error);
 }
 
 TEST(FibonacciTests, Binet_ReturnsCorrectValuesFor40FibonacciNumbers) {
@@ -47,5 +59,8 @@ TEST(FibonacciTests, Binet_ReturnsCorrectValuesFor40FibonacciNumbers) {
     results.push_back(fibonacci::Binet(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  // ASSERT_EQ(s_stress_fib, fibonacci::Binet(s_stress_n));
+}
+
+TEST(FibonacciTests, Binet_ThrowsForNGreaterThan93) {
+  ASSERT_THROW(fibonacci::Binet(94), std::overflow_error);
 }

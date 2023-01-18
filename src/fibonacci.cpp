@@ -18,12 +18,18 @@ uint64_t RecursiveMemoImpl(uint8_t n, std::vector<uint64_t> &memo) {
 uint64_t RecursiveNaive(uint8_t n) {
   if (n < 2) {
     return n;
+  } else if (n > 93) {
+    throw std::overflow_error("n must be less than 94");
   }
 
   return RecursiveNaive(n - 1) + RecursiveNaive(n - 2);
 }
 
 uint64_t RecursiveMemo(uint8_t n) {
+  if (n > 93) {
+    throw std::overflow_error("n must be less than 94");
+  }
+
   std::vector<uint64_t> memo(n + 1, 0);
   memo[1] = 1;
 
@@ -33,6 +39,8 @@ uint64_t RecursiveMemo(uint8_t n) {
 uint64_t Iterative(uint8_t n) {
   if (n < 2) {
     return n;
+  } else if (n > 93) {
+    throw std::overflow_error("n must be less than 94");
   }
 
   uint64_t prev = 0;
@@ -48,6 +56,10 @@ uint64_t Iterative(uint8_t n) {
 }
 
 uint64_t Binet(uint8_t n) {
+  if (n > 93) {
+    throw std::overflow_error("n must be less than 94");
+  }
+
   static const double phi = (1 + std::sqrt(5)) / 2;
   return (std::pow(phi, n) - std::pow(1 - phi, n)) / std::sqrt(5);
 }
