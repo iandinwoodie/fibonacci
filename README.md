@@ -19,5 +19,5 @@ cmake -E chdir "build" ctest --build-config Release
 ## Benchmarking
 
 ```bash
-cmake -E chdir "build" ./bin/fibonacci_benchmarks
+cmake -E chdir "build" ./fibonacci_benchmarks
 ```
