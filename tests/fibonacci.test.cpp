@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include <cstdint>
-#include <exception>
+#include <stdexcept>
 #include <vector>
 
 namespace {

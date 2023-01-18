@@ -1,7 +1,7 @@
 #include "fibonacci/fibonacci.h"
 
 #include <cstdint>
-#include <exception>
+#include <stdexcept>
 #include <vector>
 
 namespace fibonacci {
