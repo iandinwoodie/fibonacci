@@ -14,8 +14,8 @@ const std::vector<uint32_t> s_fib_seq = {
     46368,   75025,   121393,  196418,  317811,   514229,   832040,   1346269,
     2178309, 3524578, 5702887, 9227465, 14930352, 24157817, 39088169, 63245986};
 
-const uint8_t s_stress_n = 93;
-const uint64_t s_stress_fib = 12200160415121876738U;
+const uint8_t s_max_n = 93;
+const uint64_t s_max_fib = 12200160415121876738U;
 } // namespace
 
 TEST(FibonacciTests, RecursiveNaive_ReturnsCorrectValuesFor40FibonacciNumbers) {
@@ -27,6 +27,9 @@ TEST(FibonacciTests, RecursiveNaive_ReturnsCorrectValuesFor40FibonacciNumbers) {
   // Time complexity is too slow for stress test.
 }
 
+// The following test is excluded due to the time complexity of the algorithm.
+// TEST(FibonacciTests, RecursiveNaive_ReturnsCorrectValuesForMaxN)
+
 TEST(FibonacciTests, RecursiveNaive_ThrowsForNGreaterThan93) {
   ASSERT_THROW(fibonacci::RecursiveNaive(94), std::overflow_error);
 }
@@ -37,7 +40,10 @@ TEST(FibonacciTests, RecursiveMemo_ReturnsCorrectValuesFor40FibonacciNumbers) {
     results.push_back(fibonacci::RecursiveMemo(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  ASSERT_EQ(s_stress_fib, fibonacci::RecursiveMemo(s_stress_n));
+}
+
+TEST(FibonacciTests, RecursiveMemo_ReturnsCorrectValuesForMaxN) {
+  ASSERT_EQ(s_max_fib, fibonacci::RecursiveMemo(s_max_n));
 }
 
 TEST(FibonacciTests, RecursiveMemo_ThrowsForNGreaterThan93) {
@@ -50,7 +56,10 @@ TEST(FibonacciTests, Iterative_ReturnsCorrectValuesFor40FibonacciNumbers) {
     results.push_back(fibonacci::Iterative(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  ASSERT_EQ(s_stress_fib, fibonacci::Iterative(s_stress_n));
+}
+
+TEST(FibonacciTests, Iterative_ReturnsCorrectValuesForMaxN) {
+  ASSERT_EQ(s_max_fib, fibonacci::Iterative(s_max_n));
 }
 
 TEST(FibonacciTests, Iterative_ThrowsForNGreaterThan93) {
@@ -63,7 +72,10 @@ TEST(FibonacciTests, LookupTable_ReturnsCorrectValuesFor40FibonacciNumbers) {
     results.push_back(fibonacci::LookupTable(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  ASSERT_EQ(s_stress_fib, fibonacci::LookupTable(s_stress_n));
+}
+
+TEST(FibonacciTests, LookupTable_ReturnsCorrectValuesForMaxN) {
+  ASSERT_EQ(s_max_fib, fibonacci::LookupTable(s_max_n));
 }
 
 TEST(FibonacciTests, LookupTable_ThrowsForNGreaterThan93) {
