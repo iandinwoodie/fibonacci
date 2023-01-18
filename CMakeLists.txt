@@ -17,6 +17,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 # Third Party Dependencies.
 
 include("cmake/FindGoogleTest.cmake")
+include("cmake/FindBenchmark.cmake")
 
 ################################################################################
 # Fibonacci Library.
@@ -36,17 +37,30 @@ target_include_directories(fibonacci
 
 enable_testing()
 
-add_executable(unit_tests
+add_executable(fibonacci_unit_tests
   "tests/fibonacci.test.cpp"
 )
 
-target_link_libraries(unit_tests
+target_link_libraries(fibonacci_unit_tests
   PRIVATE
     fibonacci
     GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(unit_tests)
+gtest_discover_tests(fibonacci_unit_tests)
+
+################################################################################
+# Project Benchmarks.
+
+add_executable(fibonacci_benchmarks
+  "benchmarks/fibonacci.benchmark.cpp"
+)
+
+target_link_libraries(fibonacci_benchmarks
+  PRIVATE
+    fibonacci
+    benchmark::benchmark_main
+)
 
 ################################################################################
