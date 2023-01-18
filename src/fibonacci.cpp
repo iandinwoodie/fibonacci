@@ -1,48 +1,54 @@
 #include "fibonacci/fibonacci.h"
 
+#include <cmath>
+#include <cstdint>
 #include <vector>
 
 namespace fibonacci {
 namespace {
-unsigned int recursive_memo_impl(unsigned int n,
-                                 std::vector<unsigned int> &memo) {
+uint64_t RecursiveMemoImpl(uint8_t n, std::vector<uint64_t> &memo) {
   if (n > 1 && memo[n] == 0) {
-    memo[n] =
-        recursive_memo_impl(n - 2, memo) + recursive_memo_impl(n - 1, memo);
+    memo[n] = RecursiveMemoImpl(n - 2, memo) + RecursiveMemoImpl(n - 1, memo);
   }
 
   return memo[n];
 }
 } // namespace
 
-unsigned int recursive_naive(unsigned int n) {
+uint64_t RecursiveNaive(uint8_t n) {
   if (n < 2) {
     return n;
   }
 
-  return recursive_naive(n - 1) + recursive_naive(n - 2);
+  return RecursiveNaive(n - 1) + RecursiveNaive(n - 2);
 }
 
-unsigned int recursive_memo(unsigned int n) {
-  std::vector<unsigned int> memo(n + 1, 0);
+uint64_t RecursiveMemo(uint8_t n) {
+  std::vector<uint64_t> memo(n + 1, 0);
   memo[1] = 1;
 
-  return recursive_memo_impl(n, memo);
+  return RecursiveMemoImpl(n, memo);
 }
 
-unsigned int iterative(unsigned int n) {
+uint64_t Iterative(uint8_t n) {
   if (n < 2) {
     return n;
   }
 
-  unsigned int prev = 0;
-  unsigned int fib = 1;
-  for (unsigned int i = 2; i <= n; ++i) {
-    unsigned int tmp = prev + fib;
+  uint64_t prev = 0;
+  uint64_t fib = 1;
+  uint64_t tmp;
+  for (uint8_t i = 2; i <= n; ++i) {
+    tmp = prev + fib;
     prev = fib;
     fib = tmp;
   }
 
   return fib;
+}
+
+uint64_t Binet(uint8_t n) {
+  static const double phi = (1 + std::sqrt(5)) / 2;
+  return (std::pow(phi, n) - std::pow(1 - phi, n)) / std::sqrt(5);
 }
 } // namespace fibonacci

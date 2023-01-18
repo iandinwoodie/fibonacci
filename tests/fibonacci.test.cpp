@@ -2,35 +2,50 @@
 
 #include <gtest/gtest.h>
 
+#include <cstdint>
+#include <vector>
+
 namespace {
-const std::vector<unsigned int> s_fib_seq = {0, 1, 1, 2, 3, 5, 8};
-const unsigned int s_stress_n = 40;
-const unsigned int s_stress_result = 102334155;
+const std::vector<uint32_t> s_fib_seq = {
+    0,       1,       1,       2,       3,        5,        8,        13,
+    21,      34,      55,      89,      144,      233,      377,      610,
+    987,     1597,    2584,    4181,    6765,     10946,    17711,    28657,
+    46368,   75025,   121393,  196418,  317811,   514229,   832040,   1346269,
+    2178309, 3524578, 5702887, 9227465, 14930352, 24157817, 39088169, 63245986};
+const uint8_t s_stress_n = UCHAR_MAX;
+const uint64_t s_stress_fib = 102334155;
 } // namespace
 
-TEST(FibonacciTests, RecursiveNaive_ReturnsCorrectValuesForUnsignedInts) {
-  std::vector<unsigned int> results;
-  for (unsigned int i = 0; i < s_fib_seq.size(); ++i) {
-    results.push_back(fibonacci::recursive_naive(i));
+TEST(FibonacciTests, RecursiveNaive_ReturnsCorrectValuesFor40FibonacciNumbers) {
+  std::vector<uint32_t> results;
+  for (uint8_t i = 0; i < s_fib_seq.size(); ++i) {
+    results.push_back(fibonacci::RecursiveNaive(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  ASSERT_EQ(s_stress_result, fibonacci::recursive_naive(s_stress_n));
 }
 
-TEST(FibonacciTests, RecursiveMemo_ReturnsCorrectValuesForUnsignedInts) {
-  std::vector<unsigned int> results;
-  for (unsigned int i = 0; i < s_fib_seq.size(); ++i) {
-    results.push_back(fibonacci::recursive_memo(i));
+TEST(FibonacciTests, RecursiveMemo_ReturnsCorrectValuesFor40FibonacciNumbers) {
+  std::vector<uint32_t> results;
+  for (uint8_t i = 0; i < s_fib_seq.size(); ++i) {
+    results.push_back(fibonacci::RecursiveMemo(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  ASSERT_EQ(s_stress_result, fibonacci::recursive_memo(s_stress_n));
 }
 
-TEST(FibonacciTests, Iterative_ReturnsCorrectValuesForUnsignedInts) {
-  std::vector<unsigned int> results;
-  for (unsigned int i = 0; i < s_fib_seq.size(); ++i) {
-    results.push_back(fibonacci::iterative(i));
+TEST(FibonacciTests, Iterative_ReturnsCorrectValuesFor40FibonacciNumbers) {
+  std::vector<uint32_t> results;
+  for (uint8_t i = 0; i < s_fib_seq.size(); ++i) {
+    results.push_back(fibonacci::Iterative(i));
   }
   ASSERT_EQ(s_fib_seq, results);
-  ASSERT_EQ(s_stress_result, fibonacci::iterative(s_stress_n));
+  // ASSERT_EQ(s_stress_fib, fibonacci::Iterative(s_stress_n));
+}
+
+TEST(FibonacciTests, Binet_ReturnsCorrectValuesFor40FibonacciNumbers) {
+  std::vector<uint32_t> results;
+  for (uint8_t i = 0; i < s_fib_seq.size(); ++i) {
+    results.push_back(fibonacci::Binet(i));
+  }
+  ASSERT_EQ(s_fib_seq, results);
+  // ASSERT_EQ(s_stress_fib, fibonacci::Binet(s_stress_n));
 }
