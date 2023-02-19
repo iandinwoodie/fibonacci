@@ -11,6 +11,9 @@ project(Fibonacci
 set(CMAKE_CXX_STANDARD 17)
 include(GNUInstallDirs)
 
+# Enable the generation of compile_commands.json.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 ################################################################################
 # Third Party Dependencies.
 
