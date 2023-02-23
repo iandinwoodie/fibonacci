@@ -19,6 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include("cmake/FindGoogleTest.cmake")
 include("cmake/FindBenchmark.cmake")
+include("cmake/FindPathInst.cmake")
 
 ################################################################################
 # Fibonacci Library.
@@ -32,6 +33,8 @@ target_include_directories(fibonacci
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
+
+target_enable_pathinst(fibonacci)
 
 ################################################################################
 # Project Tests.
