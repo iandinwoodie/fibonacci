@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 project(Fibonacci
   VERSION 0.1.0
   DESCRIPTION "A library of Fibonacci number generators."
-  LANGUAGES CXX
+  LANGUAGES C CXX
 )
 
 ################################################################################
