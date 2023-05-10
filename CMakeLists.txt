@@ -17,9 +17,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ################################################################################
 # Third Party Dependencies.
 
-include("cmake/FindGoogleTest.cmake")
+find_package(paptools REQUIRED
+  PATHS "${CMAKE_CURRENT_SOURCE_DIR}/../paptools/install"
+)
+#include("cmake/FindGoogleTest.cmake")
 include("cmake/FindBenchmark.cmake")
-include("cmake/FindPaptools.cmake")
 
 ################################################################################
 # Fibonacci Library.
@@ -34,7 +36,7 @@ target_include_directories(fibonacci
     $<INSTALL_INTERFACE:include>
 )
 
-target_enable_paptrace(fibonacci)
+paptrace_trace_target(fibonacci)
 
 ################################################################################
 # Project Tests.
@@ -48,6 +50,7 @@ add_executable(fibonacci_unit_tests
 target_link_libraries(fibonacci_unit_tests
   PRIVATE
     fibonacci
+    GTest::gtest
     GTest::gtest_main
 )
 

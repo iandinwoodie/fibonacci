@@ -7,7 +7,7 @@
 namespace fibonacci {
 namespace {
 // clang-format off
-const uint64_t s_fib_table[] = {
+const unsigned long long s_fib_table[] = {
   0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597,
   2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811,
   514229, 832040, 1346269, 2178309, 3524578, 5702887, 9227465, 14930352,
@@ -27,7 +27,8 @@ const uint64_t s_fib_table[] = {
 };
 // clang-format on
 
-uint64_t RecursiveMemoImpl(uint8_t n, std::vector<uint64_t> &memo) {
+unsigned long long RecursiveMemoImpl(unsigned short n,
+                                     std::vector<unsigned long long> &memo) {
   if (n > 1 && memo[n] == 0) {
     memo[n] = RecursiveMemoImpl(n - 2, memo) + RecursiveMemoImpl(n - 1, memo);
   }
@@ -36,7 +37,7 @@ uint64_t RecursiveMemoImpl(uint8_t n, std::vector<uint64_t> &memo) {
 }
 } // namespace
 
-uint64_t RecursiveNaive(uint8_t n) {
+unsigned long long RecursiveNaive(unsigned short n) {
   if (n < 2) {
     return n;
   } else if (n > 93) {
@@ -46,28 +47,28 @@ uint64_t RecursiveNaive(uint8_t n) {
   return RecursiveNaive(n - 1) + RecursiveNaive(n - 2);
 }
 
-uint64_t RecursiveMemo(uint8_t n) {
+unsigned long long RecursiveMemo(unsigned short n) {
   if (n > 93) {
     throw std::overflow_error("n must be less than 94");
   }
 
-  std::vector<uint64_t> memo(n + 1, 0);
+  std::vector<unsigned long long> memo(n + 1, 0);
   memo[1] = 1;
 
   return RecursiveMemoImpl(n, memo);
 }
 
-uint64_t Iterative(uint8_t n) {
+unsigned long long Iterative(unsigned short n) {
   if (n < 2) {
     return n;
   } else if (n > 93) {
     throw std::overflow_error("n must be less than 94");
   }
 
-  uint64_t prev = 0;
-  uint64_t fib = 1;
-  uint64_t tmp;
-  for (uint8_t i = 2; i <= n; ++i) {
+  unsigned long long prev = 0;
+  unsigned long long fib = 1;
+  unsigned long long tmp;
+  for (unsigned short i = 2; i <= n; ++i) {
     tmp = prev + fib;
     prev = fib;
     fib = tmp;
@@ -76,7 +77,7 @@ uint64_t Iterative(uint8_t n) {
   return fib;
 }
 
-uint64_t LookupTable(uint8_t n) {
+unsigned long long LookupTable(unsigned short n) {
   if (n > 93) {
     throw std::overflow_error("n must be less than 94");
   }
